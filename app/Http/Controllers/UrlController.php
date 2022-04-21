@@ -46,7 +46,6 @@ class UrlController extends Controller
             flash("Страница уже существует");
             $foundUrl = DB::table('urls')->where('name', $url)->first();
             $urlId = optional($foundUrl)->id;
-
         } else {
             $data = [
                 'name' => $url,
