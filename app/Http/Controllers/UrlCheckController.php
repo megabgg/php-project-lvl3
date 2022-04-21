@@ -25,7 +25,7 @@ class UrlCheckController extends Controller
             $description = optional($document->first('meta[name="description"]'))->getAttribute('content');
             $keywords = optional($document->first('meta[name="keywords"]'))->getAttribute('content');
 
-            $data = [
+            DB::table('url_checks')->insert([
                 'url_id' => $url->id,
                 'status_code' => $status,
                 'created_at' => Carbon::now(),
@@ -34,17 +34,13 @@ class UrlCheckController extends Controller
                 'title' => Str::limit($title, 250),
                 'keywords' => Str::limit($keywords, 250),
                 'description' => Str::limit($description, 250)
-            ];
-
-            DB::table('url_checks')
-                ->insert($data);
+            ]);
 
             flash('Проверка завершена')->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
         }
 
-        return redirect()
-            ->route('urls.show', $url->id);
+        return redirect()->route('urls.show', $url->id);
     }
 }
