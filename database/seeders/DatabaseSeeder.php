@@ -7,7 +7,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -50,6 +49,5 @@ class DatabaseSeeder extends Seeder
                 DB::table('url_checks')->insert($urlChecksData);
             }
         }
-
     }
 }

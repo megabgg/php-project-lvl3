@@ -9,12 +9,11 @@ use Faker\Factory;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-
 class UrlControllerTest extends TestCase
 {
-    private array $data;
-
     use RefreshDatabase;
+
+    private array $data;
 
     public function setUp(): void
     {
@@ -28,7 +27,7 @@ class UrlControllerTest extends TestCase
         ];
     }
 
-    public function test_create()
+    public function testCreate()
     {
         $response = $this->get(route('urls.create'));
         $document = new Document($response->content());
@@ -36,14 +35,14 @@ class UrlControllerTest extends TestCase
         $this->assertEquals(route('urls.store'), $action);
     }
 
-    public function test_index()
+    public function testIndex()
     {
         $response = $this->get(route('urls.index'));
         $document = new Document($response->content());
         $this->assertTrue($document->has('.site-list'));
     }
 
-    public function test_store()
+    public function testStore()
     {
         $response = $this->post(route('urls.store'), $this->data);
         $response->assertSessionHasNoErrors();
@@ -51,7 +50,7 @@ class UrlControllerTest extends TestCase
         $this->assertDatabaseHas('urls', $this->data['url']);
     }
 
-    public function test_show()
+    public function testShow()
     {
         $this->data['url']['created_at'] = Carbon::now();
         $id = DB::table('urls')->insertGetId($this->data['url']);

@@ -9,7 +9,6 @@ use Faker\Factory;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-
 class UrlChecksControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -19,7 +18,7 @@ class UrlChecksControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_store()
+    public function testStore()
     {
         $faker = Factory::create();
         $parsedUrl = parse_url($faker->url);
@@ -54,5 +53,4 @@ class UrlChecksControllerTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHasNoErrors();
     }
-
 }

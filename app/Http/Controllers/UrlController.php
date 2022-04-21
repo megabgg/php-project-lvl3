@@ -7,7 +7,6 @@ use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-
 class UrlController extends Controller
 {
     public function index()
