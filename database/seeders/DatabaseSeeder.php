@@ -17,22 +17,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $urlIds = [];
         $urls = [];
-        $url_checks = [];
         $faker = Factory::create();
 
-        for ($url_count = 1; $url_count <= 50; $url_count++) {
+        for ($url_count = 0; $url_count <= 10; $url_count++) {
             $parsedUrl = parse_url($faker->url);
-            $url = "{$parsedUrl['scheme']}://$url_count{$parsedUrl['host']}";
-            $urls[] = [
-                'id' => $url_count,
+            $urls[] = "https://{$parsedUrl['host']}";
+        }
+
+        foreach (array_unique($urls) as $url) {
+            $urlsData = [
                 'name' => $url,
                 'created_at' => $faker->dateTime
             ];
-            for ($url_checks_count = 1; $url_checks_count <= 50; $url_checks_count++) {
-                $url_checks[] = [
-                    'url_id' => $url_count,
+            $urlIds[] = DB::table('urls')->insertGetId($urlsData);
+        }
+
+        foreach ($urlIds as $id) {
+            for ($url_checks_count = 0; $url_checks_count <= 5; $url_checks_count++) {
+                $urlChecksData = [
+                    'url_id' => $id,
                     'status_code' => 200,
+                    'title' => $faker->text(20),
                     'h1' => $faker->text(20),
                     'description' => $faker->text(50),
                     'keywords' => str_replace(' ', ',', $faker->text(50)),
@@ -40,11 +47,9 @@ class DatabaseSeeder extends Seeder
                     'updated_at' => $faker->dateTime,
 
                 ];
+                DB::table('url_checks')->insert($urlChecksData);
             }
-
         }
 
-        DB::table('urls')->insert($urls);
-        DB::table('url_checks')->insert($url_checks);
     }
 }
