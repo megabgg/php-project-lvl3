@@ -45,10 +45,8 @@ class UrlController extends Controller
         if (DB::table('urls')->where('name', $url)->exists()) {
             flash("Страница уже существует");
             $foundUrl = DB::table('urls')->where('name', $url)->first();
-            $urlId = $foundUrl->getAttributeValue('id');
-            if($urlId === null) {
-                throw new \Exception('Неизвестная ошибка');
-            }
+            $urlId = optional($foundUrl)->id;
+
         } else {
             $data = [
                 'name' => $url,
