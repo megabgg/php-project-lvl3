@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class UrlCheckController extends Controller
 {
-    public function store($id)
+    public function store(int $id)
     {
         $url = DB::table('urls')->find($id);
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UrlRequest;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Ramsey\Uuid\Type\Integer;
 
 class UrlController extends Controller
 {
@@ -43,6 +44,9 @@ class UrlController extends Controller
 
         if (DB::table('urls')->where('name', $url)->exists()) {
             flash("Страница уже существует");
+            /**
+             * @var int $urlId
+             */
             $urlId = DB::table('urls')->where('name', $url)->first()->id;
         } else {
             $data = [
@@ -57,7 +61,7 @@ class UrlController extends Controller
         return redirect()->route('urls.show', ['id' => $urlId]);
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $url = DB::table('urls')->find($id);
         abort_unless($url, 404);
