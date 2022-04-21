@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'App\Http\Controllers\UrlController@create')->name('urls.create');
+
+Route::resource('urls', App\Http\Controllers\UrlController::class)
+    ->only('store', 'index', 'show')
+    ->parameters([
+        'urls' => 'id'
+    ]);
+
+Route::post('/urls/{id}/checks', 'App\Http\Controllers\UrlCheckController@store')
+    ->name('url_checks.store');
