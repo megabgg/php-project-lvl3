@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
 
         for ($url_count = 1; $url_count <= 50; $url_count++) {
             $parsedUrl = parse_url($faker->url);
-            $url = "{$parsedUrl['scheme']}://{$parsedUrl['host']}";
+            $url = "{$parsedUrl['scheme']}://$url_count{$parsedUrl['host']}";
             $urls[] = [
                 'id' => $url_count,
                 'name' => $url,
