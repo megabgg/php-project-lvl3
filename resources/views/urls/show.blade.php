@@ -31,6 +31,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Код ответа</th>
+                    <th>title</th>
                     <th>h1</th>
                     <th>keywords</th>
                     <th>description</th>
@@ -40,6 +41,7 @@
                     <tr>
                         <td>{{ $check->id }}</td>
                         <td>{{ $check->status_code }}</td>
+                        <td>{{ Str::limit($check->title, 25) }}</td>
                         <td>{{ Str::limit($check->h1, 25) }}</td>
                         <td>{{ Str::limit($check->keywords, 25) }}</td>
                         <td>{{ Str::limit($check->description, 25) }}</td>

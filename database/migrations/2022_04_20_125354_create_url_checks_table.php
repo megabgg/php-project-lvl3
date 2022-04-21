@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('url_id')->references('id')->on('urls');
             $table->integer('status_code')->nullable();
             $table->string('h1', 255)->nullable();
+            $table->string('title', 255)->nullable();
             $table->string('keywords', 255)->nullable();
             $table->string('description', 255)->nullable();
             $table->timestamps();

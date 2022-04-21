@@ -21,6 +21,7 @@ class UrlCheckController extends Controller
             $document = new Document($response->body());
             $status = $response->status();
             $h1 = optional($document->first('h1'))->text();
+            $title = optional($document->first('title'))->text();
             $description = optional($document->first('meta[name="description"]'))->getAttribute('content');
             $keywords = optional($document->first('meta[name="keywords"]'))->getAttribute('content');
 
@@ -30,6 +31,7 @@ class UrlCheckController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
                 'h1' => Str::limit($h1, 250),
+                'title' => Str::limit($title, 250),
                 'keywords' => Str::limit($keywords, 250),
                 'description' => Str::limit($description, 250)
             ];
